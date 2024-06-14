@@ -83,7 +83,7 @@ function App() {
             ))}
         </div>
         <button
-          className="btnEqual"
+          className="btnEqual red"
           onClick={() => {
             if ((currentValue && operation && chiffre) || chiffre === 0) {
               const res = operations[operation!].func(currentValue!, chiffre);
