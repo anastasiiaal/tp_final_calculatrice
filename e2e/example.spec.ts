@@ -1,18 +1,16 @@
 import { test, expect } from '@playwright/test';
 
-test('has title', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
+test.describe('calculatrice', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('http://localhost:5173/');
+  });
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+  test('div.screen == 0 on load', async ({ page }) => {
+    await expect(page.locator('.screen')).toHaveText('0');
+  });
 
-test('get started link', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-
-  // Click the get started link.
-  await page.getByRole('link', { name: 'Get started' }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(page.getByRole('heading', { name: 'Installation' })).toBeVisible();
+  test('button "=" should have background color #ff0000', async ({ page }) => {
+    const backgroundColor = await page.getByRole('button', { name: '=' }).evaluate(node => window.getComputedStyle(node).backgroundColor);
+    expect(backgroundColor).toBe('rgb(255, 0, 0)');
+  });
 });
