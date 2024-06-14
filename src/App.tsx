@@ -54,6 +54,12 @@ function App() {
     }
   }, [currentValue, operation, chiffre])
 
+  const clearCalculator = useCallback(() => {
+    updateCurrent(0);
+    updateChiffre(0);
+    updateOp(undefined);
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -71,6 +77,7 @@ function App() {
           {Object.keys(operations).map((opName) => (
             <button onClick={() => updateOp(opName as Operation)}>{opName}</button>
           ))}
+          <button onClick={clearCalculator}>C</button>
         </div>
         <div className="numbers">
           {new Array(10)
